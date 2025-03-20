@@ -80,11 +80,13 @@ and writing it to sector 0.
 #NotPetya Salsa20 Encryption small flaw!
 The s20_littleendian in notpetya kernel looks like this:
 
+```
 static int16_t s20_littleendian(uint8_t *b)
 {
   return b[0] +
          (b[1] << 8);
 }
+```
 
 Because of this the Salsa20 key is halved meaning only 16 bytes of the actual 32 byte salsa20 key are used in MFT encryption.
 However cracking 16 byte key is still too much for current technology.
