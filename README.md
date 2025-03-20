@@ -77,7 +77,7 @@ then NotPetya kernel prints Incorrect key and asks for key again.
 9. After all MFT sectors of all NTFS partitions are decrypted NotPetya kernel will restore original MBR by reading sector 34 in buffer, decrypting every byte of it with XOR 0x07
 and writing it to sector 0.
 
-#NotPetya Salsa20 Encryption small flaw!
+# NotPetya Salsa20 Encryption small flaw!
 The s20_littleendian in notpetya kernel looks like this:
 
 ```
@@ -91,7 +91,7 @@ static int16_t s20_littleendian(uint8_t *b)
 Because of this the Salsa20 key is halved meaning only 16 bytes of the actual 32 byte salsa20 key are used in MFT encryption.
 However cracking 16 byte key is still too much for current technology.
 
-#Original Author of Petya publishes his secp192k1 private key
+# Original Author of Petya publishes his secp192k1 private key
 After almost one year of RedPetya, on June 27 2017 a massive NotPetya(malware based on GoldenEye kernel) malware cyberattack appeared
 that was actually wiper and destroyed MFT of infected computers it also used EternalBlue to spread across local networks like a worm.
 This forced the original author of Petya to publish his secp192k1 private key:
