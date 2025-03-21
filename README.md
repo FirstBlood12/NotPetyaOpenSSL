@@ -25,7 +25,7 @@ into its own bootloader, It will write the newly constructed NotPetya bootloader
 
 NotPetyaOpenSSL does not infect GPT disks.
 
-# How Is The Personal Decryption Code Generated?
+# How Is The Personal Installation Key Generated?
 
 1. NotPetyaOpenSSL dropper generates 16 random bytes from Base16 alphabet using CryptGenRandom.
 We will call these bytes Salsa20key.
@@ -38,8 +38,8 @@ So petya_key.exe can be used to decrypt NotPetyaOpenSSL by selecting goldeneye o
 6. Create a array that will contain the victim public key and encrypted Salsa20key.
 7. SHA512 hash the array.
 8. Create a buffer that will contain the array and the first 2 bytes of the SHA512 hash of the array and base58 encode this buffer.
-9. Create a buffer that will contain the final personal decryption code that is base58 encoded (96 bytes).
-11. Put the final base58 encoded personal decryption code in sector 32 at offset 0xA9.
+9. Create a buffer that will contain the final personal installation key that is base58 encoded (96 bytes).
+11. Put the final base58 encoded personal installation key in sector 32 at offset 0xA9.
 
 # How the MFT(Master File Table) encryption works?
 1. After the NotPetyaOpenSSL dropper crashes the system and PC reboots, the BIOS
@@ -61,7 +61,7 @@ Also while MFT encryption is done, number of MFT sectors is also updated on fake
 8. After all MFT records of every NTFS partition are encrypted, NotPetya kernel triggers a reboot by calling INT 19h.
 9. This time BIOS will read NotPetya bootloader and NotPetya bootloader will read and execute NotPetya kernel in memory again.
 10. This time NotPetya kernel will read sector 32 again in buffer and it will check the first byte of it, this time first byte of sector 32 is 0x01(MFT Encrypted),
-so this time NotPetya kernel displays ransom demand and shows what must be done in order to decrypt the hard drive and shows BTC Address and personal decryption code.
+so this time NotPetya kernel displays ransom demand and shows what must be done in order to decrypt the hard drive and shows BTC Address and personal installation key.
 
 # How the MFT(Master File Table) decryption works?
 1. At this stage the Master File Table has already been encrypted using Salsa20 cipher and the key used for encrypting the MFT has been erased from sector 32.
